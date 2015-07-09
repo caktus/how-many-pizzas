@@ -26,10 +26,13 @@ $(STATICLIBSDIR)/jquery.js:
 	@wget https://cdnjs.cloudflare.com/ajax/libs/jquery/$(JQUERY_VERSION)/jquery.js -O $@
 
 $(OUTPUTDIR)/index.html: $(SRCDIR)/index.html $(STATICLIBSDIR)/jquery.js $(STATICLIBSDIR)/modernizr.js
-	@rm -rf $(OUTPUTDIR)/
+	@$(MAKE) clean
 	@cp -R $(SRCDIR)/ $(OUTPUTDIR)
 
 html: $(OUTPUTDIR)/index.html
+
+clean:
+	@rm -rf $(OUTPUTDIR)/
 
 serve: html
 	cd $(OUTPUTDIR)/ && python -m SimpleHTTPServer
@@ -47,4 +50,4 @@ push:
 publish: html
 	$(MAKE) -C $(OUTPUTDIR) push
 
-.PHONY: default html serve publish push lint lint-js
+.PHONY: default html clean serve publish push lint lint-js
