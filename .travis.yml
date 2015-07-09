@@ -1,0 +1,17 @@
+sudo: false
+
+language: node_js
+
+install:
+    - npm install jshint
+
+script:
+    - make lint
+    - make html
+
+branches:
+  only:
+    - master
+
+after_success:
+    - make publish
