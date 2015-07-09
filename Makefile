@@ -5,6 +5,7 @@ OUTPUTDIR = $(CURDIR)/output
 
 MODERNIZR_VERSION = 2.8.3
 JQUERY_VERSION = 2.1.4
+NORMALIZE_VERSION = 3.0.3
 
 REPO = github.com/caktus/how-many-pizzas.git
 
@@ -25,7 +26,11 @@ $(STATICLIBSDIR)/jquery.js:
 	@mkdir -p $(STATICLIBSDIR)
 	@wget https://cdnjs.cloudflare.com/ajax/libs/jquery/$(JQUERY_VERSION)/jquery.js -O $@
 
-$(OUTPUTDIR)/index.html: $(SRCDIR)/index.html $(STATICLIBSDIR)/jquery.js $(STATICLIBSDIR)/modernizr.js
+$(STATICLIBSDIR)/normalize.css:
+	@mkdir -p $(STATICLIBSDIR)
+	@wget https://cdnjs.cloudflare.com/ajax/libs/normalize/$(NORMALIZE_VERSION)/normalize.css -O $@
+
+$(OUTPUTDIR)/index.html: $(SRCDIR)/index.html $(STATICLIBSDIR)/jquery.js $(STATICLIBSDIR)/modernizr.js $(STATICLIBSDIR)/normalize.css
 	@$(MAKE) clean
 	@cp -R $(SRCDIR)/ $(OUTPUTDIR)
 
