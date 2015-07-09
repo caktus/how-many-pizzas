@@ -30,7 +30,16 @@ $(STATICLIBSDIR)/normalize.css:
 	@mkdir -p $(STATICLIBSDIR)
 	@wget https://cdnjs.cloudflare.com/ajax/libs/normalize/$(NORMALIZE_VERSION)/normalize.css -O $@
 
-$(OUTPUTDIR)/index.html: $(SRCDIR)/index.html $(STATICLIBSDIR)/jquery.js $(STATICLIBSDIR)/modernizr.js $(STATICLIBSDIR)/normalize.css
+$(STATICDIR)/css/%.css: $(STATICDIR)/less/%.less
+	lessc $< $@
+
+TARGETS = $(SRCDIR)/index.html \
+	$(STATICLIBSDIR)/jquery.js \
+	$(STATICLIBSDIR)/modernizr.js \
+	$(STATICLIBSDIR)/normalize.css \
+	$(STATICDIR)/css/main.css
+
+$(OUTPUTDIR)/index.html: $(TARGETS) 
 	@$(MAKE) clean
 	@cp -R $(SRCDIR)/ $(OUTPUTDIR)
 
