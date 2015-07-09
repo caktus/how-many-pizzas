@@ -37,17 +37,12 @@ clean:
 serve: html
 	cd $(OUTPUTDIR)/ && python -m SimpleHTTPServer
 
-push:
-	ifdef GITHUB_TOKEN
-		@git init
-		@git config user.name "Travis CI"
-		@git config user.email "deploy@travis-ci.org"
-		@git add .
-		@git commit -m "Deploy to Github Pages"
-		git push --force --quiet "https://$(GITHUB_TOKEN)@$(REPO)" master:gh-pages > /dev/null 2>&1
-	endif
-
 publish: html
-	$(MAKE) -C $(OUTPUTDIR) push
+ifdef GITHUB_TOKEN
+	cd $(OUTPUTDIR) && @git init && git config user.name "Travis CI" && \
+	&& git config user.email "deploy@travis-ci.org" && git add . && \
+	git commit -m "Deploy to Github Pages" && \
+	git push --force --quiet "https://$(GITHUB_TOKEN)@$(REPO)" master:gh-pages > /dev/null 2>&1
+endif
 
-.PHONY: default html clean serve publish push lint lint-js
+.PHONY: default html clean serve publish lint lint-js
