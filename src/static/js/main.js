@@ -26,7 +26,7 @@
         return count === 1 ?  '' : 's';
     }
 
-    $('#people').on('change blur', function (e) {
+    $('#people').on('input', function (e) {
         var people = parseInt($(this).val(), 10),
             answer = $('#pizza-answer');
         $('.pizza', answer).remove();
@@ -47,6 +47,10 @@
             });
             answer.show();
         }
+    });
+
+    $('#pizza-form').on('submit', function (e) {
+        e.preventDefault();
     });
 
 })(jQuery);
