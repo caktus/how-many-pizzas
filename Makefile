@@ -37,7 +37,8 @@ TARGETS = $(SRCDIR)/index.html \
 	$(STATICLIBSDIR)/jquery.js \
 	$(STATICLIBSDIR)/modernizr.js \
 	$(STATICLIBSDIR)/normalize.css \
-	$(STATICDIR)/css/main.css
+	$(STATICDIR)/css/main.css \
+	$(STATICDIR)/js/main.js
 
 $(OUTPUTDIR)/index.html: $(TARGETS) 
 	@$(MAKE) clean

@@ -15,11 +15,29 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <h1>How Many Pizzas Should I Order?</h1>
-        <form>
-            <button>How Many Pizzas?</button>
-        </form>
+        <header>
+            <h1>How Many Pizzas Should I Order?</h1>
+        </header>
+
+        <section id="pizza-form">
+            <form>
+                <div class="question">
+                    <span class="prefix">I need to feed</span>
+                    <input type="number" value="0" min="0" step="1">
+                    <span class="suffix">people.</span>
+                </div>
+            </form>
+        </section>
+
+        <section id="pizza-answer">
+            <p>You will need <span id="result">0 pizzas</span>.</p>
+        </section>
+
+        <footer>
+
+        </footer>
 
         <script src="/static/libs/jquery.js"></script>
+        <script src="/static/js/main.js"></script>
    </body>
 </html>
