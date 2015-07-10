@@ -20,15 +20,15 @@ lint-js:
 
 $(STATICLIBSDIR)/modernizr.js:
 	@mkdir -p $(STATICLIBSDIR)
-	@wget https://cdnjs.cloudflare.com/ajax/libs/modernizr/$(MODERNIZR_VERSION)/modernizr.js -O $@
+	@curl https://cdnjs.cloudflare.com/ajax/libs/modernizr/$(MODERNIZR_VERSION)/modernizr.js -o $@
 
 $(STATICLIBSDIR)/jquery.js:
 	@mkdir -p $(STATICLIBSDIR)
-	@wget https://cdnjs.cloudflare.com/ajax/libs/jquery/$(JQUERY_VERSION)/jquery.js -O $@
+	@curl https://cdnjs.cloudflare.com/ajax/libs/jquery/$(JQUERY_VERSION)/jquery.js -o $@
 
 $(STATICLIBSDIR)/normalize.css:
 	@mkdir -p $(STATICLIBSDIR)
-	@wget https://cdnjs.cloudflare.com/ajax/libs/normalize/$(NORMALIZE_VERSION)/normalize.css -O $@
+	@curl https://cdnjs.cloudflare.com/ajax/libs/normalize/$(NORMALIZE_VERSION)/normalize.css -o $@
 
 $(STATICDIR)/css/%.css: $(STATICDIR)/less/%.less
 	lessc $< $@
