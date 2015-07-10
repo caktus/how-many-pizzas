@@ -31,15 +31,19 @@
         var people = parseInt($(this).val(), 10),
             answer = $('#pizza-answer');
         $('.pizza', answer).remove();
-        $.each(pizzaSizes, function (diameter, slices) {
-            var container =  $('<div>').addClass('pizza size-' + diameter),
-                result = $('<span>').addClass('result'),
-                count = peopleToPizzas(people, parseInt(diameter, 10), slices);
-            result.text(count + ' '  + diameter + '" pizza' + pluralize(count));
-            container.append(result);
-            answer.append(container);
-        });
-        answer.show();
+        if (isNaN(people)) {
+            answer.hide();
+        } else {
+            $.each(pizzaSizes, function (diameter, slices) {
+                var container =  $('<div>').addClass('pizza size-' + diameter),
+                    result = $('<span>').addClass('result'),
+                    count = peopleToPizzas(people, parseInt(diameter, 10), slices);
+                result.text(count + ' '  + diameter + '" pizza' + pluralize(count));
+                container.append(result);
+                answer.append(container);
+            });
+            answer.show();
+        }
     });
 
 })(jQuery);
