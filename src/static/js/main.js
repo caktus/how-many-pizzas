@@ -2,8 +2,25 @@
 (function ($) {
     'use strict';
 
-    function peopleToPizzas(people) {
-        return Math.ceil(people * 3 / 8);
+    var pizzaSizes = {
+        // Diameter --> # of slices
+        10: 6,
+        12: 8,
+        14: 8,
+        16: 10
+    };
+
+    function slicesPerPerson(size, slices) {
+        var area = Math.pow(size / 2, 2) * 3.14159,
+            perSlice = area / slices,
+            standardSlice = Math.pow(14 / 2, 2) * 3.14159 / 8,
+            ratio = perSlice / standardSlice;
+        return 3 / ratio;
+    }
+
+    function peopleToPizzas(people, size, slices) {
+        var totalSlices = slicesPerPerson(size, slices) * people;
+        return Math.ceil(totalSlices / slices);
     }
 
     function pluralize(count) {
@@ -11,9 +28,18 @@
     }
 
     $('#people').on('change blur', function (e) {
-        var count = parseInt($(this).val(), 10),
-            required = peopleToPizzas(count);
-        $('#result').text(required + ' pizza' + pluralize(required));
+        var people = parseInt($(this).val(), 10),
+            answer = $('#pizza-answer');
+        $('.pizza', answer).remove();
+        $.each(pizzaSizes, function (diameter, slices) {
+            var container =  $('<div>').addClass('pizza size-' + diameter),
+                result = $('<span>').addClass('result'),
+                count = peopleToPizzas(people, parseInt(diameter, 10), slices);
+            result.text(count + ' '  + diameter + '" pizza' + pluralize(count));
+            container.append(result);
+            answer.append(container);
+        });
+        answer.show();
     });
 
 })(jQuery);
