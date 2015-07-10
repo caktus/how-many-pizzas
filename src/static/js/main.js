@@ -2,13 +2,12 @@
 (function ($) {
     'use strict';
 
-    var pizzaSizes = {
-        // Diameter --> # of slices
-        10: 6,
-        12: 8,
-        14: 8,
-        16: 10
-    };
+    var pizzaSizes = [
+        {label: 'Small', diameter: 10, slices: 6},
+        {label: 'Medium', diameter: 12, slices: 6},
+        {label: 'Large', diameter: 14, slices: 8},
+        {label: 'XLarge', diameter: 16, slices: 10}
+    ];
 
     function slicesPerPerson(size, slices) {
         var area = Math.pow(size / 2, 2) * 3.14159,
@@ -34,11 +33,15 @@
         if (isNaN(people)) {
             answer.hide();
         } else {
-            $.each(pizzaSizes, function (diameter, slices) {
-                var container =  $('<div>').addClass('pizza size-' + diameter),
-                    result = $('<span>').addClass('result'),
-                    count = peopleToPizzas(people, parseInt(diameter, 10), slices);
-                result.text(count + ' '  + diameter + '" pizza' + pluralize(count));
+            $.each(pizzaSizes, function (i, pizza) {
+                var container =  $('<div>').addClass('pizza size-' + pizza.diameter),
+                    result = $('<div>').addClass('result'),
+                    spacer = $('<div>').addClass('spacer').text('or'),
+                    count = peopleToPizzas(people, pizza.diameter, 10, pizza.slices);
+                result.text(count + ' '  + pizza.label + pluralize(count) + ' (' + pizza.diameter + '")');
+                if (i > 0 ) {
+                    container.append(spacer);
+                }
                 container.append(result);
                 answer.append(container);
             });
